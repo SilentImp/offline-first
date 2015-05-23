@@ -1,0 +1,18 @@
+{
+  "name": "webglspeach",
+  "description": "Speach about game development in webgl",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "gulp": "*",
+    "coffee-script": "*",
+    "gulp-coffee": "*",
+    "gulp-stylus": "*",
+    "gulp-imagemin": "*",
+    "gulp-jade": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-minify-css": "*",
+    "gulp-concat": "*",
+    "gulp-gh-pages": "~0.5.1"
+  }
+}
