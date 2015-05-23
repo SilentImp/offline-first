@@ -8,54 +8,64 @@ slide-bgc = #fff
 dark-color = #fff
 light-color = #000
 
+iframe
+  position absolute
+  top 0
+  bottom 0
+  right 0
+  left 0
+  width 100%
+  height 100%
+
+
 html.scrolling,
 html.scrolling *
   pointer-events none !important
-  
+
 section#slides article *
   pointer-events none !important
 
 .code-0
   code
     font-size 48px
-  
+
 .code-1
   code
     font-size 42px
-    
+
 .code-2
   code
     font-size 36px
-    
+
 .code-3
   code
     font-size 28px
-    
+
 .code-4
   code
     font-size 24px
-    
+
 .code-5
   code
     font-size 20px
-    
+
 html body .font-xxlarge>*,
 html body .font-xxlarge>* *
   font-size 72px
   line-height 1.43
-  
+
 .screenshot
   background none
   padding 0
   img
     width 100%
-    
+
 .half
   display inline-block
   box-sizing border-box
   width 50%
   vertical-align top
-  
+
 .one-third
   text-align center
   vertical-align bottom
@@ -81,14 +91,14 @@ html body .font-xxlarge>* *
 
 .screen
   img
-    max-height 70% 
+    max-height 70%
   .url
     font-size 42px
     line-height 1.68
     margin-top 0
 
 .qrcode
-  img 
+  img
     max-width 90%
     max-height 80%
   .wrapper
@@ -131,7 +141,7 @@ html body .font-xxlarge>* *
       width 35%
       vertical-align middle
     .title
-      color #d00 
+      color #d00
     p:first-of-type
       margin-top 40px
     p
@@ -148,13 +158,13 @@ html body .font-xxlarge>* *
   right 0
   z-index 1000
   margin auto
-  background rgba(0,0,0,.75) 
+  background rgba(0,0,0,.75)
   opacity 0
   pointer-events none
   transition opacity .25s
   &.open
     pointer-events auto
-    opacity 1 
+    opacity 1
   input
     pointer-events inherit
     outline none
@@ -172,13 +182,13 @@ html body .font-xxlarge>* *
     background darken(#FFF,10%)
     transition background-color .25s
     border-radius 100%
-    padding 20px 
+    padding 20px
     box-sizing border-box
     text-align center
     line-height 60px
     font-size 42px
     &:focus
-      background-color #FFF 
+      background-color #FFF
 
 pre
   display inline-block
@@ -188,19 +198,19 @@ pre
   &.block
     display block
   code
-    font-family "PT Mono" 
+    font-family "PT Mono"
     line-height 1.68
 html
   height 100%
   width 100%
- 
-body  
-  background-color #333 
+
+body
+  background-color #333
   font-family "PT Sans"
   min-height 100%
   width 100%
   position relative
-  
+
   -webkit-touch-callout none
   -webkit-user-select none
   -khtml-user-select none
@@ -209,9 +219,9 @@ body
   user-select none
 
 body:not(.fs)
-  #slides 
+  #slides
     transform none !important
-  
+
 .progress
   position fixed
   top -4px
@@ -220,16 +230,16 @@ body:not(.fs)
   height 4px
   margin auto
   z-index 1000
-  background-color rgba(255,255,255,.5) 
+  background-color rgba(255,255,255,.5)
   transition top .25s
   .value
     height 4px
     width 0
-    background-color rgba(255,0,0,.75) 
+    background-color rgba(255,0,0,.75)
     transition width .25s
 
 body.fs
-  background-color #FFF 
+  background-color #FFF
   height 100%
   overflow hidden
   transform none
@@ -240,8 +250,8 @@ body.fs
     height slide-height
     overflow hidden
     position fixed
-    margin 0 
-    margin-top -(slide-height/2) 
+    margin 0
+    margin-top -(slide-height/2)
     margin-left -(slide-width/2)
     top 50%
     left 50%
@@ -257,29 +267,29 @@ body.fs
       &.current
         opacity 1
         z-index 110
-  
-    
-  
+
+
+
 h1, h2, h3, h4, h5
   font-family "PT Sans Caption"
   text-transform uppercase
 
 ol
   text-align left
-  font-size 24px 
+  font-size 24px
   line-height 32px
   padding 30px 60px
   list-style decimal
   li
-    margin 0 0 20px 
+    margin 0 0 20px
 ul
   text-align left
-  font-size 24px 
+  font-size 24px
   line-height 32px
   padding 30px 60px
   list-style disc
   li
-    margin 0 0 20px 
+    margin 0 0 20px
 
 article
   overflow hidden
@@ -295,21 +305,21 @@ article
   &.current
     box-shadow 0 0 0 10px rgba(255, 255, 255, .25)
   &:after
-    font-family "PT Sans" 
+    font-family "PT Sans"
     content counter(slide)
     position absolute
     display block
     bottom 10px
     right 10px
-    width 30px  
+    width 30px
     height 30px
     line-height 30px
     color #000
     text-align center
-    font-size 14px 
-    z-index 100 
-    border-radius 100% 
-    background-color #FFF 
+    font-size 14px
+    z-index 100
+    border-radius 100%
+    background-color #FFF
   &>.wrapper
     line-height 1.68
   &.cloud
@@ -342,10 +352,9 @@ article
     h1
       width 100%
       line-height 3
-      font-size 30px 
+      font-size 30px
       display inline-block
       vertical-align middle
-      background-color rgba(255,255,255,.75) 
   &.dark
     color dark-color
   &.center
@@ -355,4 +364,3 @@ article
     position relative
     display inline-block
     vertical-align middle
-    

@@ -1,23 +1,121 @@
-doctype html
-html(lang="ru")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=Edge,chrome=1")
-    title Создание игр использую WebGL и Three.js
-    link(href="css/styles.css", rel="stylesheet")
-    script(data-main="js/presentation", src="js/require.js")  
-  body
+extends ./partials/layout.jade
 
-    form.go-to-page(action="/select/slide", method="post")
-      firldset
-        input(type="text", maxlength="3", value="", placeholder="1")
+block title
+  title Offline first. Автономность прежде всего или как сделать пользователю приятно.
 
-    section.progress
-      .value
+block slides
 
-    section#slides.dark
 
-      article.title
+
+  article.title.center.dark
+    .wrapper
+      h1 Offline
+        span first
+      h2 
+        | Автономность прежде всего 
+        span или 
+        |  как сделать пользователю приятно
+        
+  article.new3g
+  
+  article.gprs.center.cloud
+    h1 
+      .wrapper GPRS‽
+  
+  article.service.center.cloud
+    h1 
+      .wrapper Не ловит‽
+      
+  article.rape
+      
+  article.bgg.center.cloud
+    h1 
+      .wrapper ;)
+      
+  article.two-ways.center.cloud
+    h1 
+      .wrapper Альтернативы-то
+        br
+        | не очень
+        
+  article.center.code-1
+    .wrapper
+      pre
+        code.javascript="navigator.onLine\n// true | false"
+        
+  article.center.code-1
+    .wrapper
+      pre
+        code.javascript="if(navigator.onLine){\n\t// …\n}else{\n\t// …\n}"
+        
+        
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="window.addEventListener('online', callback);\nwindow.document.addEventListener('online', callback);\nwindow.document.body.addEventListener('online', callback);\n\nwindow.addEventListener('offline', callback);\nwindow.document.addEventListener('offline', callback);\nwindow.document.body.addEventListener('offline', callback);"
+
+  article.center.code-2
+    .wrapper
+      pre
+        code.javascript="document.ononline = callback;\ndocument.body.ononline = callback;\ndocument.onoffline = callback;\ndocument.body.onoffline = callback;\n"
+
+
+  article.center.code-5
+    iframe(src="./examples/events/index.html")
+
+  article.no-internet.center.cloud
+    h1 
+      .wrapper Facebook 
+        br
+        | так тоже может
+        
+  article.can-post.center.cloud
+    h1 
+      .wrapper Более того…
+  
+  article.cake.center.cloud
+    h1 
+      .wrapper Offline first
+        br
+        | не тортик
+      
+  article.cherry.center.cloud
+    h1 
+      .wrapper Offline first 
+        br 
+        | вишенка
+      
+  article.many.center.cloud
+    h1 
+      .wrapper Вас таких много
+        br
+        | стоит выделиться
+    
+  article.meanie.center.cloud
+    h1 
+      .wrapper Не будьте буками!
+      
+  article.pleasure.center.cloud
+    h1 
+      .wrapper Сделайте
+        br 
+        | пользователю 
+        br 
+        | приятно
+      
+      
+  article.contacts.center.qrcode
+    .wrapper
+      .about-speaker
+        p.name Антон Немцев
+        p.link http://silentimp.info/
+        p.twitter @silentimp
+        p.email thesilentimp@gmail.com
+        p.skype skype: ravencry
+      img.link(src="images/git.svg", alt="QRCODE cо ссылкой на доклад")
+      p http://goo.gl/lTV0bL
+      
+      
       //- 
       //- article.toy2
       //- 
@@ -658,13 +756,3 @@ html(lang="ru")
       //-     pre
       //-       code.javascript='var ray = new THREE.Ray(\n\tplanet.position,\n\trock.position\n);\nvar distance = ray.distanceToPoint(\n\trock.position);\nif (distance < 1 ) {\n\tdeleteFromList.push({\n\t\tobj:rocks[index],\n\t\tindex:index\n\t});\n\tendgame();\n};'
       //- 
-
-      article.contacts.center.qrcode
-        .wrapper
-          .about-speaker
-            p.name Антон Немцев
-            p.twitter @silentimp
-            p.email thesilentimp@gmail.com
-            p.skype skype: ravencry
-          img.link(src="svg/git.svg", alt="QRCODE cо ссылкой на доклад")
-          p http://goo.gl/fTe3ga

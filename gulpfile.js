@@ -7,20 +7,27 @@ var gulp          = require('gulp')
     , minifyCSS   = require('gulp-minify-css')
     , concat      = require('gulp-concat')
     , deploy      = require('gulp-gh-pages')
-    , dirs = {
-        'source': {
-            coffee:     './developer/coffee/**/*.coffee'
-            , images:     './developer/images/**'
-            , stylus:     './developer/styl/**/*.styl'
-            , jade:       './developer/*.jade'
-          }
-        , 'build': {
-            css:        './build/css/'
-            , images:   './build/images/'
-            , js:       './build/js/'
-            , html:     './build/'
-          }
-        };
+    , order       = require('gulp-order')
+    , copy        = require('copy-dir')
+    , dirs        = {
+                      'source': {
+                          examples:     './developer/examples'
+                          , coffee:     './developer/coffee/**/*.coffee'
+                          , js:         './developer/js/**/*.js'
+                          , fonts:      './developer/fonts/**'
+                          , images:     './developer/images/**'
+                          , stylus:     './developer/styl/**/*.styl'
+                          , jade:       './developer/*.jade'
+                        }
+                      , 'build': {
+                          examples:   './build/examples'
+                          , css:      './build/css/'
+                          , images:   './build/images/'
+                          , js:       './build/js/'
+                          , fonts:    './build/fonts/'
+                          , html:     './build/'
+                        }
+                      };
 
 
 gulp.task('stylus', function () {
@@ -28,6 +35,7 @@ gulp.task('stylus', function () {
     .pipe(stylus())
     .pipe(prefix())
     .pipe(minifyCSS({removeEmpty:true}))
+    .pipe(order(["reset.css", "fonts.css", "default.css", "slidster.css", "slides.css"]))
     .pipe(concat('styles.css'))
     .pipe(gulp.dest(dirs.build.css));
 });
@@ -38,10 +46,25 @@ gulp.task('jade', function () {
     .pipe(gulp.dest(dirs.build.html));
 });
 
+gulp.task('fonts', function () {
+  return gulp.src(dirs.source.fonts)
+    .pipe(gulp.dest(dirs.build.fonts));
+});
+
+
+gulp.task('js', function () {
+  return gulp.src(dirs.source.js)
+    .pipe(gulp.dest(dirs.build.js));
+});
+
 gulp.task('coffee', function () {
   return gulp.src(dirs.source.coffee)
     .pipe(coffee())
     .pipe(gulp.dest(dirs.build.js));
+});
+
+gulp.task('examples', function () {
+  copy(dirs.source.examples, dirs.build.examples);
 });
 
 gulp.task('images', function () {
@@ -51,10 +74,11 @@ gulp.task('images', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(dirs.source.coffee, ['coffee']);
-  gulp.watch(dirs.source.images, ['images']);
-  gulp.watch(dirs.source.jade, ['jade']);
-  gulp.watch(dirs.source.stylus, ['stylus']);
+  gulp.watch(dirs.source.coffee,    ['coffee']);
+  gulp.watch(dirs.source.js,        ['js']);
+  gulp.watch(dirs.source.images,    ['images']);
+  gulp.watch(dirs.source.jade,      ['jade']);
+  gulp.watch(dirs.source.stylus,    ['stylus']);
 });
 
 gulp.task('deploy', function () {
@@ -69,4 +93,4 @@ gulp.task('deploy', function () {
 });
 
 
-gulp.task('default', ['stylus','jade','coffee', 'images', 'watch']);
+gulp.task('default', ['stylus','jade', 'js', 'fonts', 'coffee', 'images', 'watch']);

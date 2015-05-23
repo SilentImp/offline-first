@@ -13,6 +13,8 @@
     "gulp-autoprefixer": "*",
     "gulp-minify-css": "*",
     "gulp-concat": "*",
-    "gulp-gh-pages": "~0.5.1"
+    "gulp-gh-pages": "~0.5.1",
+    "gulp-order": "~1.1.1",
+    "copy-dir": "0.0.7"
   }
 }
