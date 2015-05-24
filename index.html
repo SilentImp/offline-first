@@ -1,9 +1,8 @@
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><title>Offline first. Автономность прежде всего или как сделать пользователю приятно.</title><link href="css/styles.css" rel="stylesheet"><script data-main="js/presentation" src="js/requirejs/require.js"></script></head><body><form action="/select/slide" method="post" class="go-to-page"><fieldset><input type="text" maxlength="3" value="" placeholder="1"></fieldset></form><section class="progress"><div class="value"></div></section><section id="slides" class="dark"><article class="title center dark"><div class="wrapper"><h1>Offline<span>first</span></h1><h2> 
-Автономность прежде всего <span>или </span> как сделать пользователю приятно</h2></div></article><article class="new3g"></article><article class="gprs center cloud"><h1> <div class="wrapper">GPRS‽</div></h1></article><article class="service center cloud"><h1> <div class="wrapper">Не ловит‽</div></h1></article><article class="rape"></article><article class="bgg center cloud"><h1> <div class="wrapper">;)</div></h1></article><article class="two-ways center cloud"><h1> <div class="wrapper">Альтернативы-то<br>не очень</div></h1></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">navigator.onLine
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><title>Offline first. Автономность прежде всего или как сделать пользователю приятно.</title><link href="css/styles.css" rel="stylesheet"><script data-main="js/presentation" src="js/requirejs/require.js"></script></head><body><form action="/select/slide" method="post" class="go-to-page"><fieldset><input type="text" maxlength="3" value="" placeholder="1"></fieldset></form><section class="progress"><div class="value"></div></section><section id="slides" class="dark"><article class="title center dark"><div class="wrapper"><h1>Offline <span> first</span></h1></div></article><article class="center process"><div class="half dark"><div class="wrapper"><div class="wrapper-inner"> <h1>Начальная загрузка</h1><ul><li>не загрузилась страничка</li><li>http-запросы не выполнились</li><li>js отключен или не поддерживается</li><li>js блокируется</li><li>js поломался благодаря инъекции</li></ul></div></div></div><div class="half"><div class="wrapper"> <div class="wrapper-inner"><h1>Работа приложения</h1><ul><li>временная потеря связи</li></ul></div></div></div></article><article class="center process"><div class="half dark"><div class="wrapper"><h2> <div class="sub-wrapper">Прогрессивное улучшение<br><br>мягкая деградация</div></h2></div></div><div class="half"><div class="wrapper"> <h2>Offline first</h2></div></div></article><article class="new3g"></article><article class="gprs center cloud"><h1> <div class="wrapper">GPRS‽</div></h1></article><article class="service center cloud"><h1> <div class="wrapper">Не ловит‽</div></h1></article><article class="bgg center cloud"><h1> <div class="wrapper">;)</div></h1></article><article class="rape"></article><article class="two-ways center cloud"><h1> <div class="wrapper">Альтернативы<br>не очень</div></h1></article><article class="hmm center cloud"><h1> <div class="wrapper">Но как узнать, <br>что пользователь <br>offline?</div></h1></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">navigator.onLine
 // true | false</code></pre></div></article><article class="center code-1"><div class="wrapper"><pre><code class="javascript">if(navigator.onLine){
-	// …
+    // …
 }else{
-	// …
+    // …
 }</code></pre></div></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">window.addEventListener('online', callback);
 window.document.addEventListener('online', callback);
 window.document.body.addEventListener('online', callback);
@@ -12,6 +11,77 @@ window.addEventListener('offline', callback);
 window.document.addEventListener('offline', callback);
 window.document.body.addEventListener('offline', callback);</code></pre></div></article><article class="center code-2"><div class="wrapper"><pre><code class="javascript">document.ononline = callback;
 document.body.ononline = callback;
+
 document.onoffline = callback;
 document.body.onoffline = callback;
-</code></pre></div></article><article class="center code-5"><iframe src="./examples/events/index.html"></iframe></article><article class="no-internet center cloud"><h1> <div class="wrapper">Facebook <br>так тоже может</div></h1></article><article class="can-post center cloud"><h1> <div class="wrapper">Более того…</div></h1></article><article class="cake center cloud"><h1> <div class="wrapper">Offline first<br>не тортик</div></h1></article><article class="cherry center cloud"><h1> <div class="wrapper">Offline first <br>вишенка</div></h1></article><article class="many center cloud"><h1> <div class="wrapper">Вас таких много<br>стоит выделиться</div></h1></article><article class="meanie center cloud"><h1> <div class="wrapper">Не будьте буками!</div></h1></article><article class="pleasure center cloud"><h1> <div class="wrapper">Сделайте<br>пользователю <br>приятно</div></h1></article><article class="contacts center qrcode"><div class="wrapper"><div class="about-speaker"><p class="name">Антон Немцев</p><p class="link">http://silentimp.info/</p><p class="twitter">@silentimp</p><p class="email">thesilentimp@gmail.com</p><p class="skype">skype: ravencry</p></div><img src="images/git.svg" alt="QRCODE cо ссылкой на доклад" class="link"><p>http://goo.gl/lTV0bL</p></div></article></section></body></html>
+</code></pre></div></article><article><iframe src="./examples/events/index.html"></iframe></article><article class="no-internet center cloud"><h1> <div class="wrapper">Facebook <br>так тоже может</div></h1></article><article class="can-post center cloud"><h1> <div class="wrapper">Более того…</div></h1></article><article><iframe src="./examples/form/index.html"></iframe></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">var form = $('#comment-form'),
+        messages = [];
+
+form.on('submit', function (event) {
+    event.preventDefault();
+    if(navigator.onLine){
+        $.post(form.attr('action'), form.serialize());
+    }else{
+        messages.push(form.serialize());
+    }
+    form[0].reset();
+});</code></pre></div></article><article class="center code-3"><div class="wrapper"><pre><code class="javascript">$(window).on('online', function () {
+    while(messages.length&gt;0){
+        $.post(form.attr('action'), 
+                messages.shift());
+    }
+});</code></pre></div></article><article class="offline-storage center dark"><div class="wrapper"><h1>Offline storage</h1></div></article><article><iframe src="./examples/storage/index.html"></iframe></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">var form = $('#comment-form'),
+    messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+form.on('submit', function (event) {
+    event.preventDefault();
+    if(navigator.onLine){
+        $.post(form.attr('action'), form.serialize());
+    }else{
+        messages.push(form.serialize());
+        localStorage.setItem('messages',
+            JSON.stringify(messages));
+    }
+    form[0].reset();
+});</code></pre></div></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">if(navigator.onLine){
+    while(messages.length&gt;0){
+        $.post(form.attr('action'), messages.shift());
+    }
+    localStorage.removeItem('messages');
+}
+
+$(window).on('online', function () {
+    while(messages.length&gt;0){
+        $.post(form.attr('action'), messages.shift());
+    }
+    localStorage.removeItem('messages');
+});</code></pre></div></article><article class="files center cloud"><h1> <div class="wrapper">Картинки?</div></h1></article><article><iframe src="./examples/image/index.html"></iframe></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">var img = document.createElement('IMG'),
+    storage = localStorage.getItem('storageFiles');
+img.setAttribute('alt', 'photo');
+img.setAttribute('src', 'weight.jpg');
+document.body.appendChild(img);</code></pre></div></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">var img = document.createElement('IMG'),
+    storage = localStorage.getItem('storageFiles');
+img.setAttribute('alt', 'photo');
+if(storage === null){
+    // Загружаем с сервера
+}else{
+    // Берем из localstorage
+}
+document.body.appendChild(img);</code></pre></div></article><article class="center code-5"><div class="wrapper"><pre><code class="javascript">img.setAttribute('src', 'weight.jpg');
+img.addEventListener('load', function(){
+    var imgCanvas = document.createElement('canvas'),
+        imgContext = imgCanvas.getContext('2d');
+
+    imgCanvas.width = img.width;
+    imgCanvas.height = img.height;
+    imgContext.drawImage(img, 0, 0, img.width, img.height);
+
+    storageFiles.img = imgCanvas.toDataURL('image/png');
+    try {
+        localStorage.setItem('storageFiles', 
+        JSON.stringify(storageFiles));
+    } catch (e) {
+        console.log('Произошла ошибка: ' + e);
+    }
+}</code></pre></div></article><article class="img_loaded"></article><article class="center code-3"><div class="wrapper"><pre><code class="javascript">storageFiles = JSON.parse(storage);
+img.setAttribute('src', storageFiles.img);</code></pre></div></article><article class="img_cached"></article><article class="files center cloud"><h1> <div class="wrapper">Файлы?</div></h1></article><article class="idiots center"><div class="half"><div class="wrapper"><div class="sub-wrapper"><h1>Local Storage</h1><ul><li>Синхронный</li><li>Медленный</li><li>Потребляет память</li><li>Загружается при старте барузера</li></ul></div></div></div><div class="half"></div></article><article class="cake center cloud"><h1> <div class="wrapper">Offline first<br>не тортик</div></h1></article><article class="cherry center cloud"><h1> <div class="wrapper">Offline first <br>вишенка</div></h1></article><article class="many center cloud"><h1> <div class="wrapper">Вас таких много<br>стоит выделиться</div></h1></article><article class="meanie center cloud"><h1> <div class="wrapper">Не будьте буками!</div></h1></article><article class="pleasure center cloud"><h1> <div class="wrapper">Сделайте<br>пользователю <br>приятно</div></h1></article><article class="contacts center qrcode"><div class="wrapper"><div class="about-speaker"><p class="name">Антон Немцев</p><p class="link">http://silentimp.info/</p><p class="twitter">@silentimp</p><p class="email">thesilentimp@gmail.com</p><p class="skype">skype: ravencry</p></div><img src="images/git.svg" alt="QRCODE cо ссылкой на доклад" class="link"><p>http://goo.gl/lTV0bL</p></div></article></section></body></html>
