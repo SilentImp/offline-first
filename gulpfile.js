@@ -16,7 +16,7 @@ var gulp          = require('gulp')
                           , js:         './developer/js/**/*.js'
                           , fonts:      './developer/fonts/**'
                           , images:     './developer/images/**'
-                          , stylus:     './developer/styl/**/*.styl'
+                          , stylus:     './developer/styl/**/*'
                           , jade:       './developer/*.jade'
                         }
                       , 'build': {

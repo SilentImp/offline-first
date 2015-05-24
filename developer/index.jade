@@ -5,50 +5,85 @@ block title
 
 block slides
 
-
-
   article.title.center.dark
     .wrapper
-      h1 Offline
-        span first
-      h2 
-        | Автономность прежде всего 
-        span или 
-        |  как сделать пользователю приятно
+      h1 Offline 
+        span  first
         
+  article.center.process
+    .half.dark
+      .wrapper
+        .wrapper-inner 
+          h1 Начальная загрузка
+          ul
+            li не загрузилась страничка
+            li http-запросы не выполнились
+            li js отключен или не поддерживается
+            li js блокируется
+            li js поломался благодаря инъекции
+          
+          
+    .half
+      .wrapper 
+        .wrapper-inner
+          h1 Работа приложения
+          ul
+            li временная потеря связи
+            
+  article.center.process
+    .half.dark
+      .wrapper
+        h2 
+          .sub-wrapper Прогрессивное улучшение
+            br
+            br
+            | мягкая деградация
+          
+          
+    .half
+      .wrapper 
+        h2 Offline first
+    
   article.new3g
-  
+
   article.gprs.center.cloud
     h1 
       .wrapper GPRS‽
-  
+
   article.service.center.cloud
     h1 
       .wrapper Не ловит‽
-      
-  article.rape
-      
+
   article.bgg.center.cloud
     h1 
       .wrapper ;)
-      
+
+  article.rape
+
   article.two-ways.center.cloud
     h1 
-      .wrapper Альтернативы-то
+      .wrapper Альтернативы
         br
         | не очень
         
+  article.hmm.center.cloud
+    h1 
+      .wrapper Но как узнать, 
+        br
+        | что пользователь 
+        br
+        | offline?
+
   article.center.code-1
     .wrapper
       pre
         code.javascript="navigator.onLine\n// true | false"
-        
+
   article.center.code-1
     .wrapper
       pre
-        code.javascript="if(navigator.onLine){\n\t// …\n}else{\n\t// …\n}"
-        
-        
+        code.javascript="if(navigator.onLine){\n    // …\n}else{\n    // …\n}"
+
   article.center.code-5
     .wrapper
       pre
@@ -57,12 +92,11 @@ block slides
   article.center.code-2
     .wrapper
       pre
-        code.javascript="document.ononline = callback;\ndocument.body.ononline = callback;\ndocument.onoffline = callback;\ndocument.body.onoffline = callback;\n"
+        code.javascript="document.ononline = callback;\ndocument.body.ononline = callback;\n\ndocument.onoffline = callback;\ndocument.body.onoffline = callback;\n"
 
-
-  article.center.code-5
+  article
     iframe(src="./examples/events/index.html")
-
+    
   article.no-internet.center.cloud
     h1 
       .wrapper Facebook 
@@ -72,6 +106,127 @@ block slides
   article.can-post.center.cloud
     h1 
       .wrapper Более того…
+
+  article
+    iframe(src="./examples/form/index.html")
+
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="var form = $('#comment-form'),\n        messages = [];\n\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(form.attr('action'), form.serialize());\n    }else{\n        messages.push(form.serialize());\n    }\n    form[0].reset();\n});"
+  
+  article.center.code-3
+    .wrapper
+      pre
+        code.javascript="$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(form.attr('action'), \n                messages.shift());\n    }\n});"
+        
+  article.offline-storage.center.dark
+    .wrapper
+      h1 Offline storage
+  
+  article
+    iframe(src="./examples/storage/index.html")
+  
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="var form = $('#comment-form'),\n    messages = JSON.parse(localStorage.getItem('messages')) || [];\n\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(form.attr('action'), form.serialize());\n    }else{\n        messages.push(form.serialize());\n        localStorage.setItem('messages',\n            JSON.stringify(messages));\n    }\n    form[0].reset();\n});"
+  
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="if(navigator.onLine){\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n}\n\n$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n});"
+  
+  article.files.center.cloud
+    h1 
+      .wrapper Картинки?
+  
+  article
+    iframe(src="./examples/image/index.html")
+
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="var img = document.createElement('IMG'),\n    storage = localStorage.getItem('storageFiles');\nimg.setAttribute('alt', 'photo');\nimg.setAttribute('src', 'weight.jpg');\ndocument.body.appendChild(img);"
+
+
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="var img = document.createElement('IMG'),\n    storage = localStorage.getItem('storageFiles');\nimg.setAttribute('alt', 'photo');\nif(storage === null){\n    // Загружаем с сервера\n}else{\n    // Берем из localstorage\n}\ndocument.body.appendChild(img);"
+
+
+  article.center.code-5
+    .wrapper
+      pre
+        code.javascript="img.setAttribute('src', 'weight.jpg');\nimg.addEventListener('load', function(){\n    var imgCanvas = document.createElement('canvas'),\n        imgContext = imgCanvas.getContext('2d');\n\n    imgCanvas.width = img.width;\n    imgCanvas.height = img.height;\n    imgContext.drawImage(img, 0, 0, img.width, img.height);\n\n    storageFiles.img = imgCanvas.toDataURL('image/png');\n    try {\n        localStorage.setItem('storageFiles', \n        JSON.stringify(storageFiles));\n    } catch (e) {\n        console.log('Произошла ошибка: ' + e);\n    }\n}"
+
+  article.img_loaded
+
+  article.center.code-3
+    .wrapper
+      pre
+        code.javascript="storageFiles = JSON.parse(storage);\nimg.setAttribute('src', storageFiles.img);"
+  
+  article.img_cached
+  
+  article.files.center.cloud
+    h1 
+      .wrapper Файлы?
+      
+  article.idiots.center
+    .half
+      .wrapper
+        .sub-wrapper
+          h1 Local Storage
+          ul
+            li Синхронный
+            li Медленный
+            li Потребляет память
+            li Загружается при старте барузера
+    .half
+    
+  article.center.next
+    .half
+      .wrapper 
+        h2 IndexDB
+    .half
+      .wrapper 
+        h2 Service Worker
+        
+    h1 И что же    дальше?
+      span дальше?
+        
+  article.center.qrcode.hoodie
+    .wrapper
+      .half
+        h3 HOODIE
+      .half
+        img(src="images/hoodie.svg", alt="QRCODE cо ссылкой на Hoodie")
+      p http://hood.ie/
+
+  article.center.qrcode.swarm
+    .wrapper
+      .half
+        h3 Swarm.js
+      .half
+        img(src="images/swarm.svg", alt="QRCODE cо ссылкой на Swarm.js")
+      p http://swarmjs.github.io/
+      
+  article.center.qrcode.slack
+    .wrapper
+      .half
+        h3 
+          span
+            | Offline 
+            br
+            | First 
+            br
+            | Community
+      .half
+        img(src="images/slack.svg", alt="QRCODE cо ссылкой на Slack")
+      p http://offlinefirst.org/chat
+      
   
   article.cake.center.cloud
     h1 
@@ -333,7 +488,7 @@ block slides
       //- article.center.code-2
       //-   .wrapper
       //-     pre
-      //-       code= '<script src="bower_components/\n\tthreejs/\n\tbuild/three.js">\n</script>'
+      //-       code= '<script src="bower_components/\n    threejs/\n    build/three.js">\n</script>'
       //- 
       //- 
       //- article.center.code-1
@@ -344,12 +499,12 @@ block slides
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'var scene = new THREE.Scene();\n   camera = new THREE.PerspectiveCamera(\n\t63, 4/3, 0.1, 1000\n\t),\n geometry = new THREE.CubeGeometry(.5, .5, .5),\n material = new THREE.MeshNormalMaterial(),\n     cube = new THREE.Mesh(geometry, material),\n renderer = new THREE.WebGLRenderer({\n\tcanvas: document.getElementById("screen"),\n\tantialias: true\n\t});'
+      //-       code.javascript= 'var scene = new THREE.Scene();\n   camera = new THREE.PerspectiveCamera(\n    63, 4/3, 0.1, 1000\n    ),\n geometry = new THREE.CubeGeometry(.5, .5, .5),\n material = new THREE.MeshNormalMaterial(),\n     cube = new THREE.Mesh(geometry, material),\n renderer = new THREE.WebGLRenderer({\n    canvas: document.getElementById("screen"),\n    antialias: true\n    });'
       //- 
       //- article.center.code-1
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'Scene(\n\tfog,\n\toverrideMaterial,\n\tautoUpdate)'
+      //-       code.javascript= 'Scene(\n    fog,\n    overrideMaterial,\n    autoUpdate)'
       //-     //- ul
       //-     //-   li fog — объект тумана
       //-     //-   li overrideMaterial — материал, который принудительно будут присвоен всем объектам сцены
@@ -359,7 +514,7 @@ block slides
       //- article.center.code-1
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'PerspectiveCamera(\n\t\t  fov,\n\t\t  aspect,\n\t\t  near,\n\t\t  far)'
+      //-       code.javascript= 'PerspectiveCamera(\n          fov,\n          aspect,\n          near,\n          far)'
       //-     //- ul
       //-     //-   li fov — вертикальный угол обзора
       //-     //-   li aspect — соотношение сторон
@@ -369,7 +524,7 @@ block slides
       //- article.center.code-1
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'CubeGeometry(\n\twidth,\n\theight,\n\tdepth,\n\twidthSegments,\n\theightSegments,\n\tdepthSegments)'
+      //-       code.javascript= 'CubeGeometry(\n    width,\n    height,\n    depth,\n    widthSegments,\n    heightSegments,\n    depthSegments)'
       //-     //- ul
       //-     //-   li width — ширина
       //-     //-   li height — высота
@@ -381,7 +536,7 @@ block slides
       //- article.center.code-2
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'MeshNormalMaterial({\n\tmorphTargets,\n\tshading,\n\twireframe,\n\twireframeLinewidth\n\t})'
+      //-       code.javascript= 'MeshNormalMaterial({\n    morphTargets,\n    shading,\n    wireframe,\n    wireframeLinewidth\n    })'
       //-     //- ul
       //-     //-   li morphTargets — используется ли morphTargets
       //-     //-   li shading — шейдер
@@ -399,7 +554,7 @@ block slides
       //- article.center.code-2
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'WebGLRenderer(\n\tcanvas,\n\tprecision,\n\talpha,\n\tpremultipliedAlpha,\n\tantialias,\n\tstencil,\n\tpreserveDrawingBuffer,\n\tmaxLights)'
+      //-       code.javascript= 'WebGLRenderer(\n    canvas,\n    precision,\n    alpha,\n    premultipliedAlpha,\n    antialias,\n    stencil,\n    preserveDrawingBuffer,\n    maxLights)'
       //- 
       //- article.center.code-2
       //-   .wrapper
@@ -409,7 +564,7 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript='function render() {\n\tcube.rotation.y += .05;\n\trequestAnimationFrame(render);\n\trenderer.render(scene, camera);\n}\nrender();'
+      //-       code.javascript='function render() {\n    cube.rotation.y += .05;\n    requestAnimationFrame(render);\n    renderer.render(scene, camera);\n}\nrender();'
       //- 
       //- article
       //-   canvas#demo-1
@@ -418,7 +573,7 @@ block slides
       //- //- article.center.code-4
       //- //-   .wrapper
       //- //-     pre
-      //- //-       code= 'var angle = .05,\nthree = THREE.Bootstrap({\n\telement: document.querySelector("#screen"),\n}),\ncube = new THREE.Mesh(\n\tnew THREE.CubeGeometry(.5, .5, .5),\n\tnew THREE.MeshNormalMaterial());\nthree.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n\tcube.rotation.y += angle;\n});'
+      //- //-       code= 'var angle = .05,\nthree = THREE.Bootstrap({\n    element: document.querySelector("#screen"),\n}),\ncube = new THREE.Mesh(\n    new THREE.CubeGeometry(.5, .5, .5),\n    new THREE.MeshNormalMaterial());\nthree.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n    cube.rotation.y += angle;\n});'
       //- 
       //- article.center.qrcode
       //-   .wrapper
@@ -472,17 +627,17 @@ block slides
       //- article.center.code-2
       //-   .wrapper
       //-     pre
-      //-       code= '<script src="bower_components/\n\tthreestrap/\n\tbuild/threestrap.js">\n</script>'
+      //-       code= '<script src="bower_components/\n    threestrap/\n    build/threestrap.js">\n</script>'
       //- 
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'var three = THREE.Bootstrap({\n\telement: document.querySelector("#screen")\n\t}),\n    geometry = new THREE.CubeGeometry(.5, .5, .5),\n    material = new THREE.MeshNormalMaterial(),\n    cube = new THREE.Mesh(geometry, material);'
+      //-       code.javascript= 'var three = THREE.Bootstrap({\n    element: document.querySelector("#screen")\n    }),\n    geometry = new THREE.CubeGeometry(.5, .5, .5),\n    material = new THREE.MeshNormalMaterial(),\n    cube = new THREE.Mesh(geometry, material);'
       //- 
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript= 'three.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n\tcube.rotation.y += .05;\n});'
+      //-       code.javascript= 'three.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n    cube.rotation.y += .05;\n});'
       //- 
       //- article#demo-2
       //-   //- iframe(src="examples/threestrap/index.html")
@@ -508,7 +663,7 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript='var texture = THREE.ImageUtils.loadTexture(\n\t"img/box.png"\n);\nvar cube = new THREE.Mesh(\n\tgeometry, \n\tnew THREE.MeshPhongMaterial({\n\t\tmap: texture\n\t}));'
+      //-       code.javascript='var texture = THREE.ImageUtils.loadTexture(\n    "img/box.png"\n);\nvar cube = new THREE.Mesh(\n    geometry, \n    new THREE.MeshPhongMaterial({\n        map: texture\n    }));'
       //- 
       //- article#demo-3
       //-   //- iframe(src="examples/textures/box.html")
@@ -526,7 +681,7 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript='var material = new THREE.MeshFaceMaterial([\n\tside_side,\n\tside_side,\n\ttop_side,  //top\n\tother_side, //bottom\n\tother_side,\n\tother_side\n\t]),\n    cube = new THREE.Mesh(geometry, material);'
+      //-       code.javascript='var material = new THREE.MeshFaceMaterial([\n    side_side,\n    side_side,\n    top_side,  //top\n    other_side, //bottom\n    other_side,\n    other_side\n    ]),\n    cube = new THREE.Mesh(geometry, material);'
       //- 
       //- article#demo-4
       //-   //- iframe(src="examples/textures/index.html")
@@ -546,12 +701,12 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code='var loader = new THREE.ColladaLoader();\n    loader.load(\n\t"collada/model2.dae", \n\tmodelLoaded);'
+      //-       code='var loader = new THREE.ColladaLoader();\n    loader.load(\n    "collada/model2.dae", \n    modelLoaded);'
       //- 
       //- article.center.code-2
       //-   .wrapper
       //-     pre
-      //-       code='function modelLoaded(result){\n\tcollada = result.scene;\n\tscene.add(collada);\n\trender();\n}'
+      //-       code='function modelLoaded(result){\n    collada = result.scene;\n    scene.add(collada);\n    render();\n}'
       //- 
       //- article.center.code-1
       //-   .wrapper
@@ -579,7 +734,7 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.bash='module.exports = (grunt)->\n\tgrunt.initConfig(\n\t\tthree_obj:\n\t\tdist:\n\t\tsrc: ["./obj/*.obj"],\n\t\tdest: "./json/"\n\t)\n\tgrunt.loadNpmTasks \n\t\t"grunt-three-obj"\n\tgrunt.registerTask \n\t\t"default", \n\t\t["three_obj"]'
+      //-       code.bash='module.exports = (grunt)->\n    grunt.initConfig(\n        three_obj:\n        dist:\n        src: ["./obj/*.obj"],\n        dest: "./json/"\n    )\n    grunt.loadNpmTasks \n        "grunt-three-obj"\n    grunt.registerTask \n        "default", \n        ["three_obj"]'
       //- 
       //- article.center.code-1
       //-   .wrapper
@@ -590,12 +745,12 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code='var json_loader = new THREE.JSONLoader(),\n    model = null;\njson_loader.load(\n\t"examples/model/json/human.js", \n\tmodelLoaded, \n\t"examples/model/json/");'
+      //-       code='var json_loader = new THREE.JSONLoader(),\n    model = null;\njson_loader.load(\n    "examples/model/json/human.js", \n    modelLoaded, \n    "examples/model/json/");'
       //- 
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript='function modelLoaded(geometry, materials){\n\tmodel = new THREE.Mesh(\n\t\tgeometry, \n\t\tnew THREE.MeshNormalMaterial());\n\tmodel.position.z = 10;\n\tmodel.position.y = -8;\n\tscene.add(model);\n\tcamera.lookAt(\n\t\tnew THREE.Vector3(0,0,0)\n\t);\n}'
+      //-       code.javascript='function modelLoaded(geometry, materials){\n    model = new THREE.Mesh(\n        geometry, \n        new THREE.MeshNormalMaterial());\n    model.position.z = 10;\n    model.position.y = -8;\n    scene.add(model);\n    camera.lookAt(\n        new THREE.Vector3(0,0,0)\n    );\n}'
       //- 
       //- article#demo-6
       //-   //- iframe(src="examples/json/index.html")
@@ -712,7 +867,7 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript="shield = new THREE.Object3D();\nsphere = new THREE.SphereGeometry(\n\t2, 8, 8, 0, \n\tMath.PI*2, 0, Math.PI/7)\nshield_mesh = new THREE.Mesh(\n\tsphere,\nnew THREE.MeshNormalMaterial({\n\twireframe: true\n}));\nshield.add(shield_mesh);"
+      //-       code.javascript="shield = new THREE.Object3D();\nsphere = new THREE.SphereGeometry(\n    2, 8, 8, 0, \n    Math.PI*2, 0, Math.PI/7)\nshield_mesh = new THREE.Mesh(\n    sphere,\nnew THREE.MeshNormalMaterial({\n    wireframe: true\n}));\nshield.add(shield_mesh);"
       //- 
       //- 
       //- article.center.code-4
@@ -723,7 +878,7 @@ block slides
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript="function moonLoaded(geometry, materials){\n\tmoon = new THREE.Object3D();\n\tmoon.add(\n\t\tnew THREE.Mesh(\n\t\tgeometry,\n\t\tnew THREE.MeshNormalMaterial()\n\t));\n\tscene.add(moon);\n}"
+      //-       code.javascript="function moonLoaded(geometry, materials){\n    moon = new THREE.Object3D();\n    moon.add(\n        new THREE.Mesh(\n        geometry,\n        new THREE.MeshNormalMaterial()\n    ));\n    scene.add(moon);\n}"
       //-       
       //- article.center.code-2
       //-   .wrapper
@@ -739,7 +894,7 @@ block slides
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript='function arrowsDown(event){\nvar larr = 37,\n    rarr = 39;\nswitch(event.which){\n\tcase 37:\n\t\trollLeft = true;\n\t\tbreak;\n\tcase 39:\n\t\trollRight = true;\n\tbreak;\n}}'
+      //-       code.javascript='function arrowsDown(event){\nvar larr = 37,\n    rarr = 39;\nswitch(event.which){\n    case 37:\n        rollLeft = true;\n        break;\n    case 39:\n        rollRight = true;\n    break;\n}}'
       //- 
       //- article.center.code-4
       //-   .wrapper
@@ -749,10 +904,10 @@ block slides
       //- article.center.code-3
       //-   .wrapper
       //-     pre
-      //-       code.javascript='if(rollRight===true){\n\tshield.rotation.z-=.05;\n}\nif(rollLeft===true){\n\tshield.rotation.z+=.05;\n\t}'
+      //-       code.javascript='if(rollRight===true){\n    shield.rotation.z-=.05;\n}\nif(rollLeft===true){\n    shield.rotation.z+=.05;\n    }'
       //- 
       //- article.center.code-4
       //-   .wrapper
       //-     pre
-      //-       code.javascript='var ray = new THREE.Ray(\n\tplanet.position,\n\trock.position\n);\nvar distance = ray.distanceToPoint(\n\trock.position);\nif (distance < 1 ) {\n\tdeleteFromList.push({\n\t\tobj:rocks[index],\n\t\tindex:index\n\t});\n\tendgame();\n};'
+      //-       code.javascript='var ray = new THREE.Ray(\n    planet.position,\n    rock.position\n);\nvar distance = ray.distanceToPoint(\n    rock.position);\nif (distance < 1 ) {\n    deleteFromList.push({\n        obj:rocks[index],\n        index:index\n    });\n    endgame();\n};'
       //- 
