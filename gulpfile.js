@@ -8,10 +8,11 @@ var gulp          = require('gulp')
     , concat      = require('gulp-concat')
     , deploy      = require('gulp-gh-pages')
     , order       = require('gulp-order')
-    , copy        = require('copy-dir')
+    , copy        = require('recursive-copy')
     , dirs        = {
                       'source': {
                           examples:     './developer/examples'
+                          , example:     './developer/examples/**'
                           , coffee:     './developer/coffee/**/*.coffee'
                           , js:         './developer/js/**/*.js'
                           , fonts:      './developer/fonts/**'
@@ -69,11 +70,12 @@ gulp.task('examples', function () {
 
 gulp.task('images', function () {
   return gulp.src(dirs.source.images)
-    .pipe(imagemin({optimizationLevel: 5}))
+    // .pipe(imagemin())
     .pipe(gulp.dest(dirs.build.images));
 });
 
 gulp.task('watch', function () {
+  gulp.watch(dirs.source.example,    ['examples']);
   gulp.watch(dirs.source.coffee,    ['coffee']);
   gulp.watch(dirs.source.js,        ['js']);
   gulp.watch(dirs.source.images,    ['images']);

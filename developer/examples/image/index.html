@@ -25,6 +25,7 @@
   <script>
     var img = document.createElement('IMG'),
         storage = localStorage.getItem("storageFiles");
+        storageFiles = JSON.parse(storage) || {};
 
     img.setAttribute('alt', 'photo');
 
@@ -48,7 +49,6 @@
         }
       });
     }else{
-      storageFiles = JSON.parse(storage);
       img.setAttribute("src", storageFiles.img);
     }
     document.body.appendChild(img);

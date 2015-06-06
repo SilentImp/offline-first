@@ -4,17 +4,18 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "gulp": "*",
     "coffee-script": "*",
-    "gulp-coffee": "*",
-    "gulp-stylus": "*",
-    "gulp-imagemin": "*",
-    "gulp-jade": "*",
+    "copy-dir": "0.0.7",
+    "gulp": "*",
     "gulp-autoprefixer": "*",
-    "gulp-minify-css": "*",
+    "gulp-coffee": "*",
     "gulp-concat": "*",
     "gulp-gh-pages": "~0.5.1",
+    "gulp-imagemin": "*",
+    "gulp-jade": "*",
+    "gulp-minify-css": "*",
     "gulp-order": "~1.1.1",
-    "copy-dir": "0.0.7"
+    "gulp-stylus": "*",
+    "recursive-copy": "^1.0.10"
   }
 }
