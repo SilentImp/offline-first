@@ -1,913 +1,510 @@
 extends ./partials/layout.jade
 
 block title
-  title Offline first. Автономность прежде всего или как сделать пользователю приятно.
+    title Offline first. Автономность прежде всего или как сделать пользователю приятно.
 
 block slides
 
-  article.title.center.dark
-    .wrapper
-      h1 Offline 
-        span  first
-        
-  article.center.process
-    .half.dark
-      .wrapper
-        .wrapper-inner 
-          h1 Начальная загрузка
-          ul
-            li не загрузилась страничка
-            li http-запросы не выполнились
-            li js отключен или не поддерживается
-            li js блокируется
-            li js поломался благодаря инъекции
-          
-          
-    .half
-      .wrapper 
-        .wrapper-inner
-          h1 Работа приложения
-          ul
-            li временная потеря связи
-            
-  article.center.process
-    .half.dark
-      .wrapper
-        h2 
-          .sub-wrapper Прогрессивное улучшение
-            br
-            br
-            | мягкая деградация
-          
-          
-    .half
-      .wrapper 
-        h2 Offline first
-    
-  article.new3g
+    article.title.center.dark
+        .wrapper
+            h1 Offline 
+                span  first
 
-  article.gprs.center.cloud
-    h1 
-      .wrapper GPRS‽
+    article.new3g
 
-  article.service.center.cloud
-    h1 
-      .wrapper Не ловит‽
+    article.gprs.center.cloud
+        h1 
+            .wrapper GPRS‽
 
-  article.bgg.center.cloud
-    h1 
-      .wrapper ;)
+    article.service.center.cloud
+        h1 
+            .wrapper Не ловит‽
 
-  article.rape
+    article.bgg.center.cloud
+        h1 
+            .wrapper ;)
 
-  article.two-ways.center.cloud
-    h1 
-      .wrapper Альтернативы
-        br
-        | не очень
-        
-  article.hmm.center.cloud
-    h1 
-      .wrapper Но как узнать, 
-        br
-        | что пользователь 
-        br
-        | offline?
+    article.rape
 
-  article.center.code-1
-    .wrapper
-      pre
-        code.javascript="navigator.onLine\n// true | false"
+    article.two-ways.center.cloud
+        h1 
+            .wrapper Альтернативы
+                br
+                | не очень
 
-  article.center.code-1
-    .wrapper
-      pre
-        code.javascript="if(navigator.onLine){\n    // …\n}else{\n    // …\n}"
+    article.hmm.center.cloud
+        h1 
+            .wrapper Но как узнать, 
+                br
+                | что пользователь 
+                br
+                | offline?
 
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="window.addEventListener('online', callback);\nwindow.document.addEventListener('online', callback);\nwindow.document.body.addEventListener('online', callback);\n\nwindow.addEventListener('offline', callback);\nwindow.document.addEventListener('offline', callback);\nwindow.document.body.addEventListener('offline', callback);"
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="navigator.onLine\n// true | false"
 
-  article.center.code-2
-    .wrapper
-      pre
-        code.javascript="document.ononline = callback;\ndocument.body.ononline = callback;\n\ndocument.onoffline = callback;\ndocument.body.onoffline = callback;\n"
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="if(navigator.onLine){\n    // …\n}else{\n    // …\n}"
 
-  article
-    iframe(src="./examples/events/index.html")
-    
-  article.no-internet.center.cloud
-    h1 
-      .wrapper Facebook 
-        br
-        | так тоже может
-        
-  article.can-post.center.cloud
-    h1 
-      .wrapper Более того…
+    article.center.code-5
+        .wrapper
+            pre
+                code.javascript="window.addEventListener('online', callback);\nwindow.document.addEventListener('online', callback);\nwindow.document.body.addEventListener('online', callback);\n\nwindow.addEventListener('offline', callback);\nwindow.document.addEventListener('offline', callback);\nwindow.document.body.addEventListener('offline', callback);"
 
-  article
-    iframe(src="./examples/form/index.html")
+    article
+        iframe(src="./examples/events/index.html")
 
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="var form = $('#comment-form'),\n        messages = [];\n\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(form.attr('action'), form.serialize());\n    }else{\n        messages.push(form.serialize());\n    }\n    form[0].reset();\n});"
-  
-  article.center.code-3
-    .wrapper
-      pre
-        code.javascript="$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(form.attr('action'), \n                messages.shift());\n    }\n});"
-        
-  article.offline-storage.center.dark
-    .wrapper
-      h1 Offline storage
-  
-  article
-    iframe(src="./examples/storage/index.html")
-  
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="var form = $('#comment-form'),\n    messages = JSON.parse(localStorage.getItem('messages')) || [];\n\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(form.attr('action'), form.serialize());\n    }else{\n        messages.push(form.serialize());\n        localStorage.setItem('messages',\n            JSON.stringify(messages));\n    }\n    form[0].reset();\n});"
-  
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="if(navigator.onLine){\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n}\n\n$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n});"
-  
-  article.files.center.cloud
-    h1 
-      .wrapper Картинки?
-  
-  article
-    iframe(src="./examples/image/index.html")
+    article.no-internet.center.cloud
+        h1 
+            .wrapper Facebook 
+                br
+                | так тоже может
 
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="var img = document.createElement('IMG'),\n    storage = localStorage.getItem('storageFiles');\nimg.setAttribute('alt', 'photo');\nimg.setAttribute('src', 'weight.jpg');\ndocument.body.appendChild(img);"
+    article.can-post.center.cloud
+        h1 
+            .wrapper Более того…
+
+    article
+        .backer(data-click=true)
+        iframe(src="./examples/form/index.html")
+
+    article.center.code-4
+        .wrapper
+            pre
+                code.javascript="var form = $('#comment-form'),\n\t   messages = [];\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(\n\t\tform.attr('action'), \n\t\tform.serialize()\n\t);\n    }else{\n        messages.push(form.serialize());\n    }\n    form[0].reset();\n});"
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(\n\t\tform.attr('action'), \n\t\tmessages.shift()\n\t);\n    }\n});"
+
+    article.refresh-pressed
+
+    article.offline-storage.center.dark
+        .wrapper
+            h1 Offline storage
+
+    article
+        .backer(data-click=true)
+        iframe(src="./examples/storage/index.html")
+
+    article.center.code-5
+        .wrapper
+            pre
+                code.javascript="var form = $('#comment-form'),\n    messages = JSON.parse(localStorage.getItem('messages')) || [];\n\nform.on('submit', function (event) {\n    event.preventDefault();\n    if(navigator.onLine){\n        $.post(form.attr('action'), form.serialize());\n    }else{\n        messages.push(form.serialize());\n        localStorage.setItem('messages',\n            JSON.stringify(messages));\n    }\n    form[0].reset();\n});"
+
+    article.center.code-4
+        .wrapper
+            pre
+                code.javascript="if(navigator.onLine){\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n}\n\n$(window).on('online', function () {\n    while(messages.length>0){\n        $.post(form.attr('action'), messages.shift());\n    }\n    localStorage.removeItem('messages');\n});"
+
+    article.expectations
+
+    article.reality
+
+    article.offline-js.center.dark
+        .wrapper
+            h1 Оffline.js
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="bower install --save offline\nnpm install --save offline-js"
+
+    article.center.code-3
+        .wrapper
+            pre
+                code.html="<link\n rel=\"stylesheet\"\n href=\"themes/offline-theme-chrome.css\">\n<link\n rel=\"stylesheet\"\n href=\"themes/offline-language-english.css\">\n<script src=\"offline.min.js\"></script>"
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="Offline.options = {\n\tchecks: {…},\n\tcheckmOnLoad: true,\n\tinterceptRequests: true,\n\trequests: true,\n\treconnect: {…}\n\t};"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="Offline.check();\nOffline.state;"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="Offline.on(\n\tevent,\n\thandler,\n\tcontext);\nOffline.off(\n\tevent,\n\thandler);"
 
 
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="var img = document.createElement('IMG'),\n    storage = localStorage.getItem('storageFiles');\nimg.setAttribute('alt', 'photo');\nif(storage === null){\n    // Загружаем с сервера\n}else{\n    // Берем из localstorage\n}\ndocument.body.appendChild(img);"
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="up\ndown\nconfirmed-up\nconfirmed-down\nchecking\n…"
+
+    article
+        .backer(data-click=true)
+        iframe(src="http://0.0.0.0:8083/")
+
+    article.center.qrcode.hoodie
+        .wrapper
+            .half
+                h3 Offline.js
+            .half
+                img(src="images/offlinejs.svg", alt="QRCODE cо ссылкой на Offline.js")
+            p 
+                a(href="goo.gl/HpvLgT", data-click=true) goo.gl/HpvLgT
+
+    article.center.qrcode.hoodie
+        .wrapper
+            .half
+                h3 Offline.js пример
+            .half
+                img(src="images/offlinejs-demo.svg", alt="QRCODE cо ссылкой на offlinejs Пример")
+            p 
+                a(href="https://goo.gl/wAT4rk", data-click=true) goo.gl/wAT4rk
+
+    article.center.dark.hoodie-title
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="npm install -g hoodie-cli"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="hoodie new\ncd my-first-hoodie/\nhoodie start"
+
+    article.hoodie-install-screen
+
+    article.center.code-3
+        .wrapper
+            pre
+                code.html="<script src=\"jquery.min.js\"></script>\n<script src=\"/_api/_files/hoodie.js\"></script>"
 
 
-  article.center.code-5
-    .wrapper
-      pre
-        code.javascript="img.setAttribute('src', 'weight.jpg');\nimg.addEventListener('load', function(){\n    var imgCanvas = document.createElement('canvas'),\n        imgContext = imgCanvas.getContext('2d');\n\n    imgCanvas.width = img.width;\n    imgCanvas.height = img.height;\n    imgContext.drawImage(img, 0, 0, img.width, img.height);\n\n    storageFiles.img = imgCanvas.toDataURL('image/png');\n    try {\n        localStorage.setItem('storageFiles', \n        JSON.stringify(storageFiles));\n    } catch (e) {\n        console.log('Произошла ошибка: ' + e);\n    }\n}"
+    article.wtf-1
 
-  article.img_loaded
+    article.center.code-1
+        .wrapper
+            pre
+                code.javascript="hoodie\nhoodie.account\nhoodie.store"
 
-  article.center.code-3
-    .wrapper
-      pre
-        code.javascript="storageFiles = JSON.parse(storage);\nimg.setAttribute('src', storageFiles.img);"
-  
-  article.img_cached
-  
-  article.files.center.cloud
-    h1 
-      .wrapper Файлы?
-      
-  article.idiots.center
-    .half
-      .wrapper
-        .sub-wrapper
-          h1 Local Storage
-          ul
-            li Синхронный
-            li Медленный
-            li Потребляет память
-            li Загружается при старте барузера
-    .half
-    
-  article.center.next
-    .half
-      .wrapper 
-        h2 IndexDB
-    .half
-      .wrapper 
-        h2 Service Worker
-        
-    h1 И что же    дальше?
-      span дальше?
-        
-  article.center.qrcode.hoodie
-    .wrapper
-      .half
-        h3 HOODIE
-      .half
-        img(src="images/hoodie.svg", alt="QRCODE cо ссылкой на Hoodie")
-      p http://hood.ie/
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="hoodie.account\n\t.signUp(username, password)\n\t.done(success_callback)\n\t.fail(fail_callback);"
 
-  article.center.qrcode.swarm
-    .wrapper
-      .half
-        h3 Swarm.js
-      .half
-        img(src="images/swarm.svg", alt="QRCODE cо ссылкой на Swarm.js")
-      p http://swarmjs.github.io/
-      
-  article.center.qrcode.slack
-    .wrapper
-      .half
-        h3 
-          span
-            | Offline 
-            br
-            | First 
-            br
-            | Community
-      .half
-        img(src="images/slack.svg", alt="QRCODE cо ссылкой на Slack")
-      p http://offlinefirst.org/chat
-      
-  
-  article.cake.center.cloud
-    h1 
-      .wrapper Offline first
-        br
-        | не тортик
-      
-  article.cherry.center.cloud
-    h1 
-      .wrapper Offline first 
-        br 
-        | вишенка
-      
-  article.many.center.cloud
-    h1 
-      .wrapper Вас таких много
-        br
-        | стоит выделиться
-    
-  article.meanie.center.cloud
-    h1 
-      .wrapper Не будьте буками!
-      
-  article.pleasure.center.cloud
-    h1 
-      .wrapper Сделайте
-        br 
-        | пользователю 
-        br 
-        | приятно
-      
-      
-  article.contacts.center.qrcode
-    .wrapper
-      .about-speaker
-        p.name Антон Немцев
-        p.link http://silentimp.info/
-        p.twitter @silentimp
-        p.email thesilentimp@gmail.com
-        p.skype skype: ravencry
-      img.link(src="images/git.svg", alt="QRCODE cо ссылкой на доклад")
-      p http://goo.gl/lTV0bL
-      
-      
-      //- 
-      //- article.toy2
-      //- 
-      //- article.toy3
-      //- 
-      //- article.center.cover.cloud
-      //-     h1  
-      //-       .wrapper делайте игрушки на WebGL
-      //- 
-      //- article.center.cover.cloud
-      //-     h1  
-      //-       .wrapper ну пожа-а-а-а-а-а-а-луйста
-      //- 
-      //- //- Кronos
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="img/khronos.png", alt="логотип")
-      //-     img.link(src="svg/khronos.svg", alt="QRCODE cо ссылкой на khronos")
-      //-     p http://www.khronos.org/
-      //- 
-      //- //- cпецификация WebGL
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="img/webgl.png", alt="логотип")
-      //-     img.link(src="svg/webgl.svg", alt="QRCODE cо ссылкой на webgl")
-      //-     p http://goo.gl/hyJ8Y0
-      //- 
-      //- //- cпецификация CALLADA
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="img/collada.png", alt="логотип")
-      //-     img.link(src="svg/collada.svg", alt="QRCODE cо ссылкой на collada")
-      //-     p http://goo.gl/IkcI3z
-      //- 
-      //- //- cпецификация CALLADA
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 The OpenGL ES Shading Language 3.1
-      //-     img.link(src="svg/opengles.svg", alt="QRCODE cо ссылкой на collada")
-      //-     p http://goo.gl/u5dFg0
-      //- 
-      //- 
-      //- article.center.support
-      //-   .wrapper
-      //-     ul.half
-      //-       li IE 11+
-      //-       li FF 4+
-      //-       li Chrome 8+
-      //-       li Opera 12.0 +
-      //-       li.wtf Safari 5.1+ 
-      //-     ul.half
-      //-       li.wtf iOS Safari ???
-      //-       li.no Opera Mini -
-      //-       li Opera Mobile 12+
-      //-       li.no Android Browser -
-      //-       li Blackberry Browse 10+
-      //-       li Firefox for Android 26+
-      //-       li.no IE Mobile
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="svg/caniusewebgl.svg", alt="QRCODE cо ссылкой на http://get.webgl.org/")
-      //-     p http://get.webgl.org/
-      //- 
-      //- 
-      //- article.center.cloud.math-is-hard.dictor
-      //-   h1 
-      //-     .wrapper Math is hard?
-      //- 
-      //- article.center.cloud.threejs.dictor
-      //-   h1  three.js!
-      //- 
-      //- //- three.js
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     //- .half
-      //-     //-   h2 Online редактор three.js с возможностями импорта и экспорта
-      //-     img.link(src="svg/threejs-editor.svg", alt="QRCODE cо ссылкой на threejs-editor")
-      //-     p threejs.org
-      //- 
-      //- 
-      //- article.center
-      //-   .wrapper
-      //-     ul
-      //-       li Math is hard (© Barbie)
-      //-       li Разрабатывается с 2010 года
-      //-       li Сильное комьюнити
-      //-       li Достаточный объем материалов для изучения
-      //-       li Возможность использования Wavefront (.obj) и Collada (.dae)
-      //- 
-      //- article.center.cloud.start
-      //-   h1 
-      //-     .wrapper Инициализация проекта
-      //- 
-      //- //- A Grunt taks for wrapping GLSL Shader code in Javascript packages, ready to be used in Three.js
-      //- //- article.center
-      //- //-   .wrapper
-      //- //-     h1 Grunt
-      //- //-     https://www.npmjs.org/package/grunt-glsl-threejs
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img(src="svg/yeoman.svg", alt="QRCODE cо ссылкой на yeoman")
-      //-     p http://yeoman.io/
-      //- 
-      //- article.center
-      //-   .wrapper
-      //-     .one-third
-      //-       img(src="img/yo.jpg", alt="Yo")
-      //-       h2 Yo
-      //-     .one-third
-      //-       img(src="svg/grunt.svg", alt="Grunt")
-      //-       h2 Grunt
-      //-     .one-third
-      //-       img(src="svg/bower.svg", alt="Bower")
-      //-       h2 Bower
-      //- 
-      //- article.center.code-0
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ npm install -g yo
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 Генератор Yeoman для проекта с использованием three.js
-      //-     img.link(src="svg/generator-threejs-boilerplate.svg", alt="QRCODE cо ссылкой на generator-threejs-boilerplate")
-      //-     p.title threejs-boilerplate
-      //-     p http://goo.gl/qSdClz
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ npm install -g 
-      //-         |   generator-threejs-boilerplate
-      //-         | $ yo threejs-boilerplate
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | [?] Would you the default one? (Y/n) n
-      //-         | [?] Would you like to add require.js? (Y/n) 
-      //-         | [?] Would you like to support webgl detection? (Y/n)
-      //-         | [?] Would you like to support window resize? (Y/n)
-      //-         |     create Makefile
-      //-         |     create index.html
-      //-         |     create vendor/three.js/build/three.js
-      //-         |     create vendor/threex.windowresize.js
-      //-         |     create vendor/three.js/examples/js/Detector.js
-      //-         |     create vendor/require.js/require.js
-      //- 
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | index.html
-      //-         | Makefile
-      //-         | vendor/
-      //-         |     threex.windowresize.js
-      //-         |     require.js/
-      //-         |         require.js
-      //-         |     three.js/
-      //-         |         build/
-      //-         |             three.js
-      //-         |         examples/js/
-      //-         |             Detector.js
-      //- 
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/threejs-boilerplate.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode.bower
-      //-   .wrapper
-      //-     .half
-      //-       h2 Bower
-      //-     .half
-      //-       img(src="svg/bower.svg", alt="QRCODE cо ссылкой на bower")
-      //-     p http://bower.io/
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ npm install -g bower
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 Пакет Bower содержащий three.js
-      //-     img.link(src="svg/bower-threejs.svg", alt="QRCODE cо ссылкой на bower threejs")
-      //-     p.title threejs
-      //-     p http://goo.gl/Q9XkQv
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ bower install threejs
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | bower_components/
-      //-         |     threejs/
-      //-         |         build/
-      //-         |             three.js
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code= '<script src="bower_components/\n    threejs/\n    build/three.js">\n</script>'
-      //- 
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code= '<canvas id="screen"></canvas>'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'var scene = new THREE.Scene();\n   camera = new THREE.PerspectiveCamera(\n    63, 4/3, 0.1, 1000\n    ),\n geometry = new THREE.CubeGeometry(.5, .5, .5),\n material = new THREE.MeshNormalMaterial(),\n     cube = new THREE.Mesh(geometry, material),\n renderer = new THREE.WebGLRenderer({\n    canvas: document.getElementById("screen"),\n    antialias: true\n    });'
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'Scene(\n    fog,\n    overrideMaterial,\n    autoUpdate)'
-      //-     //- ul
-      //-     //-   li fog — объект тумана
-      //-     //-   li overrideMaterial — материал, который принудительно будут присвоен всем объектам сцены
-      //-     //-   li autoUpdate — автообновление состояние всех элементов сцены
-      //- 
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'PerspectiveCamera(\n          fov,\n          aspect,\n          near,\n          far)'
-      //-     //- ul
-      //-     //-   li fov — вертикальный угол обзора
-      //-     //-   li aspect — соотношение сторон
-      //-     //-   li near — ближнее фокусное расстояние
-      //-     //-   li far — дальнее фокусное расстояние
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'CubeGeometry(\n    width,\n    height,\n    depth,\n    widthSegments,\n    heightSegments,\n    depthSegments)'
-      //-     //- ul
-      //-     //-   li width — ширина
-      //-     //-   li height — высота
-      //-     //-   li depth — глубина
-      //-     //-   li widthSegments — количество сегментов по ширине
-      //-     //-   li heightSegments — количество сегментов по высоте
-      //-     //-   li depthSegments — количество сегментов по глубине
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'MeshNormalMaterial({\n    morphTargets,\n    shading,\n    wireframe,\n    wireframeLinewidth\n    })'
-      //-     //- ul
-      //-     //-   li morphTargets — используется ли morphTargets
-      //-     //-   li shading — шейдер
-      //-     //-   li wireframe — отображать как сетку
-      //-     //-   li wireframeLinewidth — плотность сетки
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'Mesh(geometry, material)'
-      //-     //- ul
-      //-     //-   li geometry — геометрия
-      //-     //-   li material — материал
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'WebGLRenderer(\n    canvas,\n    precision,\n    alpha,\n    premultipliedAlpha,\n    antialias,\n    stencil,\n    preserveDrawingBuffer,\n    maxLights)'
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='renderer.setSize(600, 400);\nscene.add(cube);\ncamera.position.x = 0;\ncamera.position.y = 1;\ncamera.position.z = 2;\ncamera.lookAt(cube.position);'
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='function render() {\n    cube.rotation.y += .05;\n    requestAnimationFrame(render);\n    renderer.render(scene, camera);\n}\nrender();'
-      //- 
-      //- article
-      //-   canvas#demo-1
-      //-   //- iframe(src="examples/cube/index.html")
-      //- 
-      //- //- article.center.code-4
-      //- //-   .wrapper
-      //- //-     pre
-      //- //-       code= 'var angle = .05,\nthree = THREE.Bootstrap({\n    element: document.querySelector("#screen"),\n}),\ncube = new THREE.Mesh(\n    new THREE.CubeGeometry(.5, .5, .5),\n    new THREE.MeshNormalMaterial());\nthree.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n    cube.rotation.y += angle;\n});'
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 Пакет Bower содержащий Three.js бутстрап
-      //-     img.link(src="svg/threestrap.svg", alt="QRCODE cо ссылкой на bower threestrap")
-      //-     p.title threestrap
-      //-     p http://goo.gl/0GiKKP
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ bower install threestrap
-      //- 
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | bower_components/
-      //-         |     threestrap/
-      //-         |         build/
-      //-         |             threestrap.js
-      //-         |             threestrap-core.js
-      //-         |             threestrap-extra.js
-      //- 
-      //- article.center.threestrap-list
-      //-   .wrapper
-      //-     .one-third
-      //-       h2 Empty
-      //-       ul
-      //-         li renderer
-      //-         li bind
-      //-         li size
-      //-         li fill
-      //-         li loop
-      //-         li time
-      //-     .one-third
-      //-       h2 Core
-      //-       ul
-      //-         li scene
-      //-         li camera
-      //-         li render
-      //-     .one-third
-      //-       h2 Extra
-      //-       ul
-      //-         li stats
-      //-         li controls
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code= '<script src="bower_components/\n    threestrap/\n    build/threestrap.js">\n</script>'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'var three = THREE.Bootstrap({\n    element: document.querySelector("#screen")\n    }),\n    geometry = new THREE.CubeGeometry(.5, .5, .5),\n    material = new THREE.MeshNormalMaterial(),\n    cube = new THREE.Mesh(geometry, material);'
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript= 'three.scene.add(cube);\nthree.camera.position.set(0, 1, 2);\nthree.camera.lookAt(cube.position);\nthree.on("update", function () {\n    cube.rotation.y += .05;\n});'
-      //- 
-      //- article#demo-2
-      //-   //- iframe(src="examples/threestrap/index.html")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 Плагин Grunt для получения JavaScript кода GLSL шейдеров 
-      //-     img.link(src="svg/grunt-glsl-threejs.svg", alt="QRCODE cо ссылкой на glsl-threejs")
-      //-     p.title glsl-threejs
-      //-     p http://goo.gl/K4ssEr
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ npm install grunt-glsl-threejs
-      //- 
-      //- article.center.photo.cloud
-      //-   h1 
-      //-     .wrapper Я жажду фото-<br>реализма!
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='var texture = THREE.ImageUtils.loadTexture(\n    "img/box.png"\n);\nvar cube = new THREE.Mesh(\n    geometry, \n    new THREE.MeshPhongMaterial({\n        map: texture\n    }));'
-      //- 
-      //- article#demo-3
-      //-   //- iframe(src="examples/textures/box.html")
-      //- 
-      //- article.center.photo.cloud
-      //-   h1 
-      //-     .wrapper А если<br>грани<br>куба — <br>разные?
-      //- 
-      //- 
-      //- article.center.code-5
-      //-   .wrapper
-      //-     pre
-      //-       code='var texture1 = THREE.ImageUtils.loadTexture("img/t1.png"),\n    texture2 = THREE.ImageUtils.loadTexture("img/t2.png"),\n    texture3 = THREE.ImageUtils.loadTexture("img/t3.png"),\n    top_side = new THREE.MeshPhongMaterial({map: texture1}),\n    side_side = new THREE.MeshPhongMaterial({map: texture2}),\n    other_side = new THREE.MeshPhongMaterial({map: texture3});'
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='var material = new THREE.MeshFaceMaterial([\n    side_side,\n    side_side,\n    top_side,  //top\n    other_side, //bottom\n    other_side,\n    other_side\n    ]),\n    cube = new THREE.Mesh(geometry, material);'
-      //- 
-      //- article#demo-4
-      //-   //- iframe(src="examples/textures/index.html")
-      //- 
-      //- article.center.cloud.wireframe.dictor.dictor2
-      //-   h1 
-      //-     .wrapper Хочу что-то менее тривиальное!
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half
-      //-       h2 Загрузка из формата COLLADA
-      //-     img.link(src="svg/collada2threejs.svg", alt="QRCODE cо ссылкой на Collada-Import-Three.js")
-      //-     p.title Collada-Import-Three.js
-      //-     p http://goo.gl/7JEXnV
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code='var loader = new THREE.ColladaLoader();\n    loader.load(\n    "collada/model2.dae", \n    modelLoaded);'
-      //- 
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code='function modelLoaded(result){\n    collada = result.scene;\n    scene.add(collada);\n    render();\n}'
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code='result.dae.images\nresult.dae.geometries\nresult.dae.materials'
-      //- 
-      //- article#demo-5
-      //-   //- iframe(src="examples/collada/index.html")
-      //- 
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half 
-      //-       h2 Плагин Grunt для конвертации .OBJ в .JSON
-      //-     img.link(src="svg/grunt-three-obj.svg", alt="QRCODE cо ссылкой на glsl-threejs")
-      //-     p.title grunt-three-obj
-      //-     p http://goo.gl/rTauLO
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ npm install grunt-three-obj --save-dev
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.bash='module.exports = (grunt)->\n    grunt.initConfig(\n        three_obj:\n        dist:\n        src: ["./obj/*.obj"],\n        dest: "./json/"\n    )\n    grunt.loadNpmTasks \n        "grunt-three-obj"\n    grunt.registerTask \n        "default", \n        ["three_obj"]'
-      //- 
-      //- article.center.code-1
-      //-   .wrapper
-      //-     pre
-      //-       code.bash
-      //-         | $ grunt
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code='var json_loader = new THREE.JSONLoader(),\n    model = null;\njson_loader.load(\n    "examples/model/json/human.js", \n    modelLoaded, \n    "examples/model/json/");'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='function modelLoaded(geometry, materials){\n    model = new THREE.Mesh(\n        geometry, \n        new THREE.MeshNormalMaterial());\n    model.position.z = 10;\n    model.position.y = -8;\n    scene.add(model);\n    camera.lookAt(\n        new THREE.Vector3(0,0,0)\n    );\n}'
-      //- 
-      //- article#demo-6
-      //-   //- iframe(src="examples/json/index.html")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     .half 
-      //-       h2 Плагины для экспорта в JSON из Blender, Maya, 3Ds MAX
-      //-     img.link(src="svg/exporters.svg", alt="QRCODE cо ссылкой на glsl-threejs")
-      //-     p http://goo.gl/6bnan4
-      //- 
-      //- //- article.center.qrcode
-      //- //-   .wrapper
-      //- //-     .half
-      //- //-       h2 Альтернативная библиотека для загрузки из формата COLLADA
-      //- //-     img.link(src="svg/collada2threejs-2.svg", alt="QRCODE cо ссылкой на threejs-collada")
-      //- //-     p.title threejs-collada
-      //- //-     p http://goo.gl/HmiIl5
-      //- 
-      //- article.center.models.cloud
-      //-   h1 
-      //-     .wrapper Откуда брать модели?
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/blendswap.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="svg/blendswap.svg", alt="QRCODE cо ссылкой на blender")
-      //-     p http://blendswap.com/
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/mocap.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="svg/mocap.svg", alt="QRCODE cо ссылкой на blender")
-      //-     p http://goo.gl/G62KBp
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/screen-blender.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="svg/grunt-glsl-threejs.svg", alt="QRCODE cо ссылкой на blender")
-      //-     p http://blender.org/
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/screen-makehuman.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     img.link(src="svg/grunt-glsl-threejs.svg", alt="QRCODE cо ссылкой на www.makehuman.org")
-      //-     p http://makehuman.org/
-      //- 
-      //- article.center.screenshot
-      //-   .wrapper
-      //-     img.link(src="img/screen-threejs-editor.png", alt="Скриншот")
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     //- .half
-      //-     //-   h2 Online редактор three.js с возможностями импорта и экспорта
-      //-     img.link(src="svg/threejs-editor.svg", alt="QRCODE cо ссылкой на threejs-editor")
-      //-     p http://threejs.org/editor/
-      //- 
-      //- //- article.center
-      //- //-   .wrapper
-      //- //-     h1 Анимация
-      //- 
-      //- //- article.center
-      //- //-   .wrapper
-      //- //-     h1 Откуда брать mocap
-      //- 
-      //- article.center.physics.cloud
-      //-   h1 Физика
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     h2 Physijs
-      //-     img.link(src="svg/physijs.svg", alt="QRCODE cо ссылкой на threejs-editor")
-      //-     p http://goo.gl/VGFccu
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     h2 ammo.js
-      //-     img.link(src="svg/ammo.svg", alt="QRCODE cо ссылкой на ammo")
-      //-     p http://goo.gl/YTwlMB
-      //- 
-      //- article.center.qrcode
-      //-   .wrapper
-      //-     h2 canon.js
-      //-     img.link(src="svg/cannonjs.svg", alt="QRCODE cо ссылкой на ammo")
-      //-     p http://cannonjs.org/
-      //- 
-      //- article.center.cloud.meteor
-      //-   .wrapper
-      //-     h1 Пример игры
-      //- 
-      //- article#demo-7
-      //- 
-      //- article.center
-      //-   .wrapper
-      //-     ul
-      //-       li Создать сцену
-      //-       li Добавить внешние модели
-      //-       li Анимировать модели
-      //-       li Добавить интерактивность
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript="shield = new THREE.Object3D();\nsphere = new THREE.SphereGeometry(\n    2, 8, 8, 0, \n    Math.PI*2, 0, Math.PI/7)\nshield_mesh = new THREE.Mesh(\n    sphere,\nnew THREE.MeshNormalMaterial({\n    wireframe: true\n}));\nshield.add(shield_mesh);"
-      //- 
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript="json_loader = new THREE.JSONLoader();\njson_loader.load('json/planet.js', modelLoaded);\njson_loader.load('json/rock.js', rockLoaded);\njson_loader.load('json/moon.js', moonLoaded);"
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript="function moonLoaded(geometry, materials){\n    moon = new THREE.Object3D();\n    moon.add(\n        new THREE.Mesh(\n        geometry,\n        new THREE.MeshNormalMaterial()\n    ));\n    scene.add(moon);\n}"
-      //-       
-      //- article.center.code-2
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript="planet.rotation.x+=.001;\nplanet.rotation.y+=.001;\nmoon.rotation.z+=.01;"
-      //- 
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='document.addEventListener("keydown", arrowsDown);\ndocument.addEventListener("keyup", arrowsUp);'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='function arrowsDown(event){\nvar larr = 37,\n    rarr = 39;\nswitch(event.which){\n    case 37:\n        rollLeft = true;\n        break;\n    case 39:\n        rollRight = true;\n    break;\n}}'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='document.addEventListener("keydown", arrowsDown);\ndocument.addEventListener("keyup", arrowsUp);'
-      //- 
-      //- article.center.code-3
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='if(rollRight===true){\n    shield.rotation.z-=.05;\n}\nif(rollLeft===true){\n    shield.rotation.z+=.05;\n    }'
-      //- 
-      //- article.center.code-4
-      //-   .wrapper
-      //-     pre
-      //-       code.javascript='var ray = new THREE.Ray(\n    planet.position,\n    rock.position\n);\nvar distance = ray.distanceToPoint(\n    rock.position);\nif (distance < 1 ) {\n    deleteFromList.push({\n        obj:rocks[index],\n        index:index\n    });\n    endgame();\n};'
-      //- 
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="hoodie.account\n\t.signIn(username, password)\n\t.done(success_callback)\n\t.fail(fail_callback);"
+
+    article.useless
+
+    article.safe
+
+    article
+        .backer(data-click=true)
+        iframe(src="http://127.0.0.1:6004/index.html")
+
+    article.conflict
+
+    article
+        .backer(data-click=true)
+        iframe.half(src="http://127.0.0.1:6004/conflict.html")
+        iframe.half(src="http://127.0.0.1:6004/index.html")
+
+    article.wtf-2
+
+    article.prototypo
+
+    article.minutes
+
+    article.center.qrcode.hoodie
+        .wrapper
+            .half
+                h3 HOODIE.JS
+            .half
+                img(src="images/hoodie.svg", width="100%", alt="QRCODE cо ссылкой на Hoodie")
+            p 
+                a(href="http://hood.ie/", data-click=true) hood.ie
+
+    article.center.qrcode.hoodie
+        .wrapper
+            .half
+                h3 HOODIE Slack
+            .half
+                img(src="images/slack2.svg", alt="QRCODE cо ссылкой на Hoodie Slack")
+            p 
+                a(href="http://hood.ie/chat/", data-click=true) hood.ie/chat/
+
+
+    article.center.qrcode.hoodie
+        .wrapper
+            .half
+                h3 HOODIE.JS пример
+            .half
+                img(src="images/hoodie-demo.svg", alt="QRCODE cо ссылкой на Hoodie пример")
+            p 
+                a(href="https://goo.gl/yH5xJp", data-click=true) goo.gl/yH5xJp
+
+    article.center.swarm-title
+        .wrapper
+            h1 Swarm.js
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="npm install --save swarm"
+
+    article.center.filename
+        .wrapper
+            h1 server.js
+
+    article.center.code-3
+        .wrapper
+            pre
+                code.javascript="let swarm = require('swarm'),\n    Text = require('swarm/lib/Text'),\n    fs = new swarm.FileStorage('id'),\n    host = new swarm.Host(\n\t'swarm~nodejs',\n\t0,\n\tfs\n    ),\n    app = new Text('APP');"
+
+    article.center.code-3
+        .wrapper
+            pre
+                code.javascript="ws_server.on('connection', function (ws) {\n\thost.accept(\n\t\tnew swarm.EinarosWSStream(ws),\n\t\t{delay: 50}\n\t);\n});"
+
+    article.center.filename
+        .wrapper
+            h1 client.js
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="let swarm = require('swarm'),\n  Text = require('swarm/lib/Text'),\n  host = new swarm.Host('id');\n\nthis.model = new Text('APP');\nthis.model.on(\n  this.eventMonitor.bind(this));"
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="host.connect(\n  'ws://127.0.0.1:8000/');\nwindow.addEventListener(\n  'onbeforeunload',\n  this.turnOff.bind(this));"
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="eventMonitor (spec, val, source) {\n  if (spec.op() == 'init') {\n    // Инициализировался\n  } else {\n    // Изменился\n  }\n}"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="this.model.text"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="this.model.set(value);"
+
+    article.center.code-1
+        .wrapper
+            pre
+                code.bash="host.close();"
+
+    article
+        .backer(data-click=true)
+        iframe(src="http://127.0.0.1:8888/index.html")
+
+    article.conflict2
+
+    article
+        .backer(data-click=true)
+        iframe.half(src="http://127.0.0.1:8888/conflict.html")
+        iframe.half(src="http://127.0.0.1:8888/index.html")
+
+
+    article.center.qrcode.swarm
+        .wrapper
+            .half
+                h3 Swarm.js
+            .half
+                img(src="images/swarm.svg", alt="QRCODE cо ссылкой на Swarm.js")
+            p 
+                a(href="http://swarmjs.github.io/", data-click=true) swarmjs.github.io
+
+    article.center.qrcode.swarm
+        .wrapper
+            .half
+                h3 Swarm.js пример
+            .half
+                img(src="images/swarmjs-demo.svg", alt="QRCODE cо ссылкой на пример Swarm.js")
+            p 
+                a(href="https://goo.gl/S8odgW", data-click=true) goo.gl/S8odgW
+
+    article.service-worker.center.dark
+        .wrapper
+            h1 Service Workers
+
+    article.can
+
+    article
+        .backer(data-click=true)
+        iframe(src="https://silentimp.github.io/service-worker-demo/")
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="if ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register(\n    'worker.js',\n    {scope: '/'})\n  .then(success)\n  .catch(error);\n}"
+
+    article.center.filename
+        .wrapper
+            h1 worker.js
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="// События\n\ninstall\nactivate\nfetch\nmessage"
+
+    article.center.dark.fetch
+        .wrapper
+            h1 Перехват запросов
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="this.addEventListener(\n\t'fetch',\n\tfunction(event) {});"
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="event.request"
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="event.request.url"
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="event.respondWith(\n\tnew Response('Owned!')\n);"
+
+    article.center.dark.cach
+        .wrapper
+            h1 Сохранение в кэш
+
+    article.code-1.center
+        .wrapper
+            pre
+                code.javascript="caches.open('id')\n  .then(function(cache) {\n    return cache.addAll([…]);\n  });"
+
+    article.code-3.center
+        .wrapper
+            pre
+                code.javascript="event.respondWith(\n  caches.open('id')\n    .then(function(cache) {\n      return cache.match(event.request)\n       .then(function(response) {…}\n     });\n  });"
+
+    article.code-2.center
+        .wrapper
+            pre
+                code.javascript="if (response) {\n  return response;\n} else {\n  cache.add(event.request.url);\n  return fetch(event.request);\n}"
+
+    article.center.dark.message
+        .wrapper
+            h1 Cообщения
+
+    article.code-2.center
+        .wrapper
+            pre
+                code.javascript="// client.js\n\nlet message = {\n  'command': 'flush'\n};\nnavigator\n  .serviceWorker\n  .controller\n  .postMessage(message);"
+
+    article.code-2.center
+        .wrapper
+            pre
+                code.javascript="// worker.js\n\nswitch (event.data.command) {\n  case 'flush':\n    return caches.delete('id');\n    break;\n}"
+
+    article.center.bugs.dark
+        .wrapper
+            h1 Отладка
+
+    article.center.code-2
+        .wrapper
+            pre
+                code.javascript="// Chrome\nchrome://inspect/#service-workers\n\n// Opera\nbrowser://serviceworker-internals\n\n// Firefox\nabout:serviceworkers"
+
+    article.inspect
+
+    article.log
+
+
+    article.center.qrcode.swarm
+        .wrapper
+            .half
+                h3 Service Workers 
+            .half
+                img(src="images/sws.svg", alt="QRCODE cо ссылкой на спецификацию Service Workers")
+            p 
+                a(href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/", data-click=true) goo.gl/3LeXLw
+
+    article.center.qrcode.swarm
+        .wrapper
+            .half
+                h3 Service Workers пример
+            .half
+                img(src="images/sw-demo.svg", alt="QRCODE cо ссылкой на пример Service Workers")
+            p 
+                a(href="https://goo.gl/TRlRi3", data-click=true) goo.gl/TRlRi3
+
+
+    article.center.qrcode.slack
+        .wrapper
+            .half
+                h3 
+                    span
+                        | Offline 
+                        br
+                        | First 
+                        br
+                        | Community
+            .half
+                img(src="images/slack2.svg", alt="QRCODE cо ссылкой на Slack")
+            p 
+                a(href="http://offlinefirst.org/chat", data-click=true) offlinefirst.org/chat
+
+
+    article.cake.center.cloud
+        h1 
+            .wrapper Offline first
+                br
+                | не тортик
+
+    article.cherry.center.cloud
+        h1 
+            .wrapper Offline first 
+                br 
+                | вишенка
+
+    article.many.center.cloud
+        h1 
+            .wrapper Вас таких много
+                br
+                | стоит выделиться
+
+    article.meanie.center.cloud
+        h1 
+            .wrapper Не будьте буками!
+
+    article.pleasure.center.cloud
+        h1 
+            .wrapper Сделайте
+                br 
+                | пользователю 
+                br 
+                | приятно
+
+
+    article.contacts.center.qrcode
+        .wrapper
+            .about-speaker
+                p.name Антон Немцев
+                p.link http://silentimp.info/
+                p.twitter @silentimp
+                p.email thesilentimp@gmail.com
+                p.skype skype: ravencry
+            img.link(src="images/git.svg", alt="QRCODE cо ссылкой на доклад")
+            p http://goo.gl/lTV0bL
