@@ -6,8 +6,8 @@
 # Конференции
 
 1. [IT Forum][1] 23 мая 2015 года.
-2. [WSD][2] 31 октября 2015 года. [Трансляция, 2:38][3]
+2. [WSD][2] 31 октября 2015 года. [Трансляция, 5:26][3]
 
 [1]: http://forum.uawebchallenge.com/
 [2]: http://webstandardsdays.ru/2015/10/31/#schedule-1 
-[3]: https://youtu.be/f1DVxtjiBc4?t=2h38m21s
+[3]: https://youtu.be/f1DVxtjiBc4?t=19398
